@@ -1,5 +1,5 @@
 // CustomEdge.tsx
-import React from 'react';
+import React, {useCallback} from 'react';
 import { EdgeProps, getBezierPath, useReactFlow } from '@xyflow/react';
 
 const AddEdge: React.FC<EdgeProps> = ({
@@ -19,10 +19,9 @@ const AddEdge: React.FC<EdgeProps> = ({
         targetX,
         targetY
     });
-
     const reactFlowInstance = useReactFlow();
 
-    const handleAdd = () => {
+    const handleAdd = useCallback(() => {
         const newId = new Date().toISOString()
         const newNode = {
             id: newId, // or another method to generate a unique ID
@@ -37,7 +36,7 @@ const AddEdge: React.FC<EdgeProps> = ({
         reactFlowInstance.addNodes(newNode);
         reactFlowInstance.addEdges(newEdges);
         reactFlowInstance.deleteElements({ edges: [{ id }] })
-    };
+    },[id, reactFlowInstance, source, target]);
 
     return (
         <>
