@@ -8,6 +8,8 @@ const AddEdge: React.FC<EdgeProps> = ({
                                              sourceY,
                                              targetX,
                                              targetY,
+                                             source,
+                                             target,
                                              style,
                                          }) => {
     // Generate the Bezier path for the edge
@@ -20,8 +22,21 @@ const AddEdge: React.FC<EdgeProps> = ({
 
     const reactFlowInstance = useReactFlow();
 
-    const handleDelete = () => {
-        reactFlowInstance.deleteElements({ edges: [{ id }] });
+    const handleAdd = () => {
+        const newId = new Date().toISOString()
+        const newNode = {
+            id: newId, // or another method to generate a unique ID
+            type: 'startNode', // specify the type if needed
+            position: { x: Math.random() * window.innerWidth / 2, y: Math.random() * window.innerHeight / 2 },
+            data: { label: `${new Date().getTime()}` },
+        };
+        const newEdges = [
+            { id: `e${source}-${newId}`, type: 'addEdge', source: `${source}`, target: `${newId}` },
+            { id: `e${newId}-${target}`, type: 'addEdge', source: `${newId}`, target: `${target}` },
+        ]
+        reactFlowInstance.addNodes(newNode);
+        reactFlowInstance.addEdges(newEdges);
+        reactFlowInstance.deleteElements({ edges: [{ id }] })
     };
 
     return (
@@ -39,7 +54,7 @@ const AddEdge: React.FC<EdgeProps> = ({
             >
                 <button
                     className="text-black text-sm p-1 rounded flex items-center justify-center bg-white"
-                    onClick={handleDelete}
+                    onClick={handleAdd}
                     style={{ width: '100%', height: '100%'}}
                 >
                     +
