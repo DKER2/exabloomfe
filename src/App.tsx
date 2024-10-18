@@ -13,15 +13,15 @@ import {
 import '@xyflow/react/dist/style.css';
 import StartNode from "./Components/Nodes/StartNode.tsx";
 import EndNode from "./Components/Nodes/EndNode.tsx";
-import CustomEdge from "./Components/Edges/CustomEdge.tsx";
+import AddEdge from "./Components/Edges/AddEdge.tsx";
 
-const edgeTypes = { custom: CustomEdge };
+const edgeTypes = { addEdge: AddEdge };
 const nodeTypes = { startNode: StartNode, endNode: EndNode };
 const initialNodes = [
     { id: '1', type: 'startNode', position: { x: 0, y: 0 }, data: { label: '1' } },
     { id: '2', type: 'endNode', position: { x: 50, y: 100 }, data: { label: '2' } },
 ];
-const initialEdges = [{ id: 'e1-2', type: 'custom', source: '1', target: '2' }];
+const initialEdges = [{ id: 'e1-2', type: 'addEdge', source: '1', target: '2' }];
 
 export default function App() {
     const [nodes, , onNodesChange] = useNodesState(initialNodes);

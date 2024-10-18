@@ -2,7 +2,7 @@
 import React from 'react';
 import { EdgeProps, getBezierPath, useReactFlow } from '@xyflow/react';
 
-const CustomEdge: React.FC<EdgeProps> = ({
+const AddEdge: React.FC<EdgeProps> = ({
                                              id,
                                              sourceX,
                                              sourceY,
@@ -49,4 +49,4 @@ const CustomEdge: React.FC<EdgeProps> = ({
     );
 };
 
-export default CustomEdge;
+export default AddEdge;

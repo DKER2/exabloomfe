@@ -3,7 +3,7 @@ import BaseNode from "./BaseNode.tsx";
 
 const EndNode : React.FC = () => {
     return (
-        <BaseNode customClass="rounded-full bg-slate-200">
+        <BaseNode customClass="rounded-full bg-slate-400">
             <div className="w-full h-full flex items-center justify-center p-3">
                 End
             </div>
