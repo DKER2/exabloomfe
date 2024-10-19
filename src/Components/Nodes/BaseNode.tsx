@@ -1,7 +1,7 @@
 import React, {ReactNode, useMemo, useRef} from 'react';
 import { Handle, Position } from '@xyflow/react';
 
-interface BaseNodeProps {
+interface BaseNodeProps  {
     children: ReactNode;
     customClass?: string;
 }
@@ -13,10 +13,12 @@ const BaseNode: React.FC<BaseNodeProps> = ({ children, customClass = "" } : Base
     }, [customClass]);
 
     return (
-        <div className={customizeClassName}>
-            <Handle type="target" position={Position.Top} />
-            {children}
-            <Handle type="source" position={Position.Bottom} id="a" />
+        <div>
+            <div className={customizeClassName}>
+                <Handle type="target" position={Position.Top} />
+                {children}
+                <Handle type="source" position={Position.Bottom} id="a" />
+            </div>
         </div>
     );
 };
