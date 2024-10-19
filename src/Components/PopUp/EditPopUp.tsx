@@ -6,9 +6,10 @@ interface EditPopUpProps {
     nodeName : string;
     closePopUp: () => void;
     setNodeName: (name: string) => void;
+    onDelete: () => void;
 }
 
-const EditPopUp: React.FC<EditPopUpProps> = ({isOpen, nodeName , closePopUp, setNodeName}) => {
+const EditPopUp: React.FC<EditPopUpProps> = ({isOpen, nodeName , closePopUp, setNodeName, onDelete}) => {
     const [inputNodeName, setInputNodeName] = useState(nodeName);
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setInputNodeName(event.target.value);
@@ -50,7 +51,7 @@ const EditPopUp: React.FC<EditPopUpProps> = ({isOpen, nodeName , closePopUp, set
                 <div className="flex justify-between mt-6">
                     <button
                         className="text-red-500 border border-red-500 px-4 py-2 rounded hover:bg-red-50"
-                        onClick={() => alert('Deleted')}
+                        onClick={onDelete}
                     >
                         Delete
                     </button>
