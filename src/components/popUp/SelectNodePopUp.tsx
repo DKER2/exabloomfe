@@ -24,7 +24,7 @@ const SelectNodePopUp: React.FC<SelectNodePopUpProps> = ({isOpen , closePopUp, c
                 </div>
             </div>
             {
-                Object.entries(nodeTypes).map(([nodeType,]) => (
+                Object.entries(nodeTypes).map(([nodeType]) => (
                     <NodeItem key={nodeType} createNode={() => {createInternalNode(nodeType as NodeTypes)}}>
                         <div>
                             {nodeType}
