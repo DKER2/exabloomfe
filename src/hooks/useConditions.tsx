@@ -30,7 +30,7 @@ export default function useConditions(initialConditions: string[], id: string): 
         return newNode;
     };
 
-    const createConnectedEndNode = (node: Node) => {
+    const createConnectedEndNode = (node: Node) : [Node, Edge] => {
         const newId = `${node.id}-${new Date().toISOString()}`; // Create unique ID
         const newNode : Node = {
             id: newId,
@@ -38,15 +38,16 @@ export default function useConditions(initialConditions: string[], id: string): 
             position: { x: node.position.x, y: node.position.y + 100 },
             data: {},
         };
-        createConnectEdge(newNode.id, node.id, "addEdge")
+        const newEdge = createConnectEdge(newNode.id, node.id, "addEdge")
         reactFlowInstance.addNodes(newNode);
+        return [newNode, newEdge]
     }
 
-    const createConnectedChild = (condition : string, index: number) : [Node, Edge] => {
+    const createConnectedChild = (condition : string, index: number) : [Node[], Edge[]] => {
         const newNode = createNode(condition, index);
         const newEdge = createConnectEdge(newNode.id, id);
-        createConnectedEndNode(newNode)
-        return [newNode, newEdge];
+        const [newEndNode, newEndEdge] = createConnectedEndNode(newNode)
+        return [[newNode, newEndNode], [newEdge, newEndEdge]];
     }
 
     // const deleteConnectedChild = ([node, edge] : [Node, Edge]) : void => {
@@ -95,18 +96,23 @@ export default function useConditions(initialConditions: string[], id: string): 
     };
 
     useEffect(() => {
-        setChildElements(initialConditions.map(createConnectedChild));
+        const newChildElements = initialConditions.map(createConnectedChild);
+        setChildElements(newChildElements.map(([nodes, edges]) => {
+            return [nodes[0], edges[0]]
+        }));
         return () => {
-            childElements.forEach(([node]) => {
-                deleteFlowFromNode(node.id)
-            })
+            newChildElements.forEach(([nodes, edges]) => {
+                reactFlowInstance.deleteElements({ edges: edges, nodes: node });
+            });
         }
     }, []);
 
     const addConditions = useCallback((additionConditions: string[]) => {
-        const newConnectedElements = additionConditions.map(createConnectedChild);
+        const newConnectedElements = additionConditions.map(createConnectedChild).map(([nodes, edges]) : [Node, Edge] => {
+            return [nodes[0], edges[0]]
+        });
         realignItem()
-        setChildElements([...childElements, ...newConnectedElements]);
+        setChildElements((childElements) => [...childElements, ...newConnectedElements]);
     }, [])
 
     return [addConditions];

@@ -1,16 +1,17 @@
 import React, {useCallback, useState} from "react";
 import BaseLeftPopup from "./BaseLeftPopUp.tsx";
 
-interface EditActionNodePopUpProps {
+interface EditIfElseNodePopUp {
     isOpen: boolean;
     id: string;
     nodeName : string;
     closePopUp: () => void;
     setNodeName: (name: string) => void;
     onDelete: () => void;
+    addConditions: (conditions: string[]) => void
 }
 
-const EditActionNodePopUp: React.FC<EditActionNodePopUpProps> = ({isOpen, id, nodeName , closePopUp, setNodeName, onDelete}) => {
+const EditIfElseNodePopUp: React.FC<EditIfElseNodePopUp> = ({isOpen, id, nodeName , closePopUp, setNodeName, onDelete}) => {
     const [inputNodeName, setInputNodeName] = useState(nodeName);
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setInputNodeName(event.target.value);
@@ -23,7 +24,7 @@ const EditActionNodePopUp: React.FC<EditActionNodePopUpProps> = ({isOpen, id, no
     return (
         <BaseLeftPopup isOpen={isOpen} id={id} closePopUp={closePopUp} nodeName={nodeName}>
             <div className="flex flex-col justify-between h-full">
-                <div className="mb-6">
+                <div>
                     <label className="block mb-2 text-gray-700">Action Name</label>
                     <input
                         type="text"
@@ -56,7 +57,7 @@ const EditActionNodePopUp: React.FC<EditActionNodePopUpProps> = ({isOpen, id, no
             </div>
         </BaseLeftPopup>
 
-)
+    )
 }
 
-export default EditActionNodePopUp;
+export default EditIfElseNodePopUp;
