@@ -4,14 +4,11 @@ import BasePopUp from "./BasePopUp.tsx";
 interface PopupProps {
     isOpen: boolean,
     children?: React.ReactNode;
-    id: string;
-    nodeName : string;
-    closePopUp: () => void;
 }
 
-const BaseLeftPopup: React.FC<PopupProps> = ({ isOpen, children, id, nodeName, closePopUp }) => {
+const BaseLeftPopup: React.FC<PopupProps> = ({ isOpen, children}) => {
     return (
-        <BasePopUp isOpen={isOpen} align="left" id={id} nodeName={nodeName} closePopUp={closePopUp}>
+        <BasePopUp isOpen={isOpen} align="left">
             {children}
         </BasePopUp>
     );

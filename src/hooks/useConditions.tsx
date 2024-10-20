@@ -102,10 +102,10 @@ export default function useConditions(initialConditions: string[], id: string): 
         }));
         return () => {
             newChildElements.forEach(([nodes, edges]) => {
-                reactFlowInstance.deleteElements({ edges: edges, nodes: node });
+                reactFlowInstance.deleteElements({ edges: edges, nodes: nodes });
             });
         }
-    }, []);
+    }, [initialConditions]);
 
     const addConditions = useCallback((additionConditions: string[]) => {
         const newConnectedElements = additionConditions.map(createConnectedChild).map(([nodes, edges]) : [Node, Edge] => {

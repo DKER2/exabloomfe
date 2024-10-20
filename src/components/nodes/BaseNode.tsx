@@ -4,20 +4,25 @@ import { Handle, Position } from '@xyflow/react';
 interface BaseNodeProps  {
     children: ReactNode;
     customClass?: string;
+    disableDefaultHandle?: boolean
 }
 
-const BaseNode: React.FC<BaseNodeProps> = ({ children, customClass = "" } : BaseNodeProps) => {
+const BaseNode: React.FC<BaseNodeProps> = ({ children, customClass = "", disableDefaultHandle = false } : BaseNodeProps) => {
     const baseClassName = useRef("h-20 w-64 rounded border-slate-300 border-2 flex items-center justify-center");
     const customizeClassName = useMemo(() => {
         return `${baseClassName.current} ${customClass}`;
     }, [customClass]);
-
+    console.log(disableDefaultHandle);
     return (
         <div>
             <div className={customizeClassName}>
-                <Handle type="target" position={Position.Top} />
+                {!disableDefaultHandle && (
+                    <div>
+                        <Handle type="target" position={Position.Top}/>
+                        <Handle type="source" position={Position.Bottom} id="a"/>
+                    </div>)
+                }
                 {children}
-                <Handle type="source" position={Position.Bottom} id="a" />
             </div>
         </div>
     );

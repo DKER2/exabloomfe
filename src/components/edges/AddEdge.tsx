@@ -46,7 +46,7 @@ const AddEdge: React.FC<EdgeProps> = ({
     }
 
     const deleteEdges = (id: string) : void => {
-        reactFlowInstance.deleteElements({ edges: [{ id }] })
+        reactFlowInstance.deleteElements({ edges: [{ id }] }).then()
     }
 
     const deleteNode = (id: string) : void => {
