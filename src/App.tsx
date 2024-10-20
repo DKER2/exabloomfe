@@ -11,13 +11,10 @@ import {
 } from '@xyflow/react';
 
 import '@xyflow/react/dist/style.css';
-import StartNode from "./Components/Nodes/StartNode.tsx";
-import EndNode from "./Components/Nodes/EndNode.tsx";
-import AddEdge from "./Components/Edges/AddEdge.tsx";
-import ActionNode from "./Components/Nodes/ActionNode.tsx";
+import AddEdge from "./components/edges/AddEdge.tsx";
+import nodeTypes from "./consts/nodeTypes.ts";
 
 const edgeTypes = { addEdge: AddEdge };
-const nodeTypes = { startNode: StartNode, endNode: EndNode, actionNode: ActionNode };
 const initialNodes = [
     { id: '1', type: 'startNode', position: { x: 200, y: 100 }, data: { label: '1' } },
     { id: '2', type: 'endNode', position: { x: 200, y: 500 }, data: { label: '2' } },
