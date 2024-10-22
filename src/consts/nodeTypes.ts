@@ -5,6 +5,7 @@ import IfElseNode from "../components/nodes/IfElseNode.tsx";
 import BranchNode from "../components/nodes/BranchNode.tsx";
 
 export type NodeTypes = 'startNode' | 'endNode' | 'actionNode' | 'ifElseNode' | 'branchNode';
+export type CreatableNodeTypes = 'endNode' | 'actionNode' | 'ifElseNode';
 
 const nodeTypes: Record<NodeTypes, React.FC<any>> = {
     startNode: StartNode,

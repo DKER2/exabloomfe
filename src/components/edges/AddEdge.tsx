@@ -86,7 +86,7 @@ const AddEdge: React.FC<EdgeProps> = ({
                 </button>
 
             </foreignObject>
-            <SelectNodePopUp isOpen={isOpen} closePopUp={() => setIsOpen(false)} createInternalNode={createInternalNode}/>
+            <SelectNodePopUp isOpen={isOpen} closePopUp={() => setIsOpen(false)} createNode={createInternalNode}/>
         </>
     );
 };

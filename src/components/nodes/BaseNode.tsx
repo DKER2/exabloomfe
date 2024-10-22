@@ -12,7 +12,6 @@ const BaseNode: React.FC<BaseNodeProps> = ({ children, customClass = "", disable
     const customizeClassName = useMemo(() => {
         return `${baseClassName.current} ${customClass}`;
     }, [customClass]);
-    console.log(disableDefaultHandle);
     return (
         <div>
             <div className={customizeClassName}>

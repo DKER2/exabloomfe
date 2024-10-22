@@ -1,5 +1,5 @@
 import React, {useCallback, useState} from "react";
-import BaseLeftPopup from "./BaseLeftPopUp.tsx";
+import BaseEditLeftPopUp from "./BaseEditLeftPopUp.tsx";
 
 interface EditIfElseNodePopUp {
     isOpen: boolean;
@@ -8,30 +8,61 @@ interface EditIfElseNodePopUp {
     closePopUp: () => void;
     setNodeName: (name: string) => void;
     onDelete: () => void;
-    addConditions: (conditions: string[]) => void
+    addConditions?: (conditions: string[]) => void;
+    setConditions: (conditions: string[]) => void;
+    conditions: string[]
 }
 
-const EditIfElseNodePopUp: React.FC<EditIfElseNodePopUp> = ({isOpen, id, nodeName , closePopUp, setNodeName, onDelete}) => {
+const EditIfElseNodePopUp: React.FC<EditIfElseNodePopUp> = ({isOpen, id, nodeName , closePopUp, setNodeName, onDelete, setConditions, conditions}) => {
     const [inputNodeName, setInputNodeName] = useState(nodeName);
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleInputNodeNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setInputNodeName(event.target.value);
     };
+    const [inputConditions, setInputConditions] = useState<string[]>(conditions)
+
+    const handleInputBranchNameChange = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
+        const newBranchNames = [...inputConditions];
+        newBranchNames[index] = event.target.value;
+        setInputConditions(newBranchNames);
+    }
     const onSubmit = useCallback(() => {
         setNodeName(inputNodeName);
+        setConditions(inputConditions)
         closePopUp();
-    }, [inputNodeName])
+    }, [inputNodeName, inputConditions])
 
     return (
-        <BaseLeftPopup isOpen={isOpen} id={id} closePopUp={closePopUp} nodeName={nodeName}>
+        <BaseEditLeftPopUp isOpen={isOpen} id={id} closePopUp={closePopUp} nodeName={nodeName}>
             <div className="flex flex-col justify-between h-full">
                 <div>
                     <label className="block mb-2 text-gray-700">Action Name</label>
                     <input
                         type="text"
                         className="w-full border rounded p-2"
-                        onChange={handleInputChange}
+                        onChange={handleInputNodeNameChange}
                         value={inputNodeName}
                     />
+                </div>
+                <div>
+                    <div className="text-bold">
+                        Branches
+                    </div>
+                    <div>
+                        {inputConditions.map(((condition, index) => {
+                            return (
+                                <input
+                                type="text"
+                                className="w-full border rounded p-2"
+                                onChange={(e) => handleInputBranchNameChange(e, index)}
+                                value={condition}/>
+                            );
+                        }))}
+                    </div>
+                    <div>
+                        <button onClick={() => setInputConditions([...inputConditions.slice(0, inputConditions.length - 1), "", inputConditions[inputConditions.length - 1]])}>
+                            + add branch
+                        </button>
+                    </div>
                 </div>
 
                 <div className="flex justify-between mt-6">
@@ -55,7 +86,7 @@ const EditIfElseNodePopUp: React.FC<EditIfElseNodePopUp> = ({isOpen, id, nodeNam
                     </div>
                 </div>
             </div>
-        </BaseLeftPopup>
+        </BaseEditLeftPopUp>
 
     )
 }

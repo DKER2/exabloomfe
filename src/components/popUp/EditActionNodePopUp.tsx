@@ -1,5 +1,5 @@
 import React, {useCallback, useState} from "react";
-import BaseLeftPopup from "./BaseLeftPopUp.tsx";
+import BaseEditLeftPopUp from "./BaseEditLeftPopUp.tsx";
 
 interface EditActionNodePopUpProps {
     isOpen: boolean;
@@ -21,7 +21,7 @@ const EditActionNodePopUp: React.FC<EditActionNodePopUpProps> = ({isOpen, id, no
     }, [inputNodeName])
 
     return (
-        <BaseLeftPopup isOpen={isOpen} id={id} closePopUp={closePopUp} nodeName={nodeName}>
+        <BaseEditLeftPopUp isOpen={isOpen} id={id} closePopUp={closePopUp} nodeName={nodeName}>
             <div className="flex flex-col justify-between h-full">
                 <div className="mb-6">
                     <label className="block mb-2 text-gray-700">Action Name</label>
@@ -54,7 +54,7 @@ const EditActionNodePopUp: React.FC<EditActionNodePopUpProps> = ({isOpen, id, no
                     </div>
                 </div>
             </div>
-        </BaseLeftPopup>
+        </BaseEditLeftPopUp>
 
 )
 }

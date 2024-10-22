@@ -6,11 +6,10 @@ import nodeTypes, {NodeTypes} from "../../consts/nodeTypes.ts";
 interface SelectNodePopUpProps {
     isOpen: boolean;
     closePopUp: () => void;
-    createInternalNode: (type : NodeTypes) => void;
+    createNode: (type : NodeTypes) => void;
 }
 
-const SelectNodePopUp: React.FC<SelectNodePopUpProps> = ({isOpen , closePopUp, createInternalNode}) => {
-    console.log(nodeTypes)
+const SelectNodePopUp: React.FC<SelectNodePopUpProps> = ({isOpen , closePopUp, createNode}) => {
     return (<BaseLeftPopup isOpen={isOpen}>
         <div>
             <div className="flex items-center justify-end mb-4">
@@ -23,15 +22,25 @@ const SelectNodePopUp: React.FC<SelectNodePopUpProps> = ({isOpen , closePopUp, c
                     </button>
                 </div>
             </div>
-            {
-                Object.entries(nodeTypes).map(([nodeType]) => (
-                    <NodeItem key={nodeType} createNode={() => {createInternalNode(nodeType as NodeTypes)}}>
-                        <div>
-                            {nodeType}
-                        </div>
-                    </NodeItem>
-                ))
-            }
+            <div className="flex flex-col justify-center items-center">
+                {
+                    Object.entries(nodeTypes).map(([nodeType, CustomNode]) => {
+                        if (['endNode', 'actionNode', 'ifElseNode'].includes(nodeType)) {
+                            return (<NodeItem key={nodeType} createNode={() => {
+                                createNode(nodeType as NodeTypes);
+                                closePopUp()
+                            }}>
+                                <div className="font-bold">
+                                    {nodeType}
+                                </div>
+                                <div>
+                                    <CustomNode id="random" data={"Branch"}/>
+                                </div>
+                            </NodeItem>)
+                        }
+                    })
+                }
+            </div>
         </div>
     </BaseLeftPopup>)
 }

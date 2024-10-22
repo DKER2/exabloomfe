@@ -12,14 +12,14 @@ interface BranchNodeProps {
 
 const IfElseNode : React.FC<BranchNodeProps> = ({id}) => {
     // const [addConditions] = useConditions(useRef(["Branch #1", "Else"]).current, id);
-    const [conditions, ] = useState(["Branch #1", "Else"])
+    const [conditions, setConditions, ] = useState(["Branch #1", "Else"])
     const [nodeName, setNodeName] = useState("If/Else");
     const reactFlowInstance = useReactFlow();
     const [isPopUpOpen, setIsPopUpOpen] = useState(false);
 
     return (
         <div className="flex flex-col justify-center items-center">
-            <EditIfElseNodePopUp id={id} onDelete={() => {reactFlowInstance.deleteElements({nodes: [{id}]})}} isOpen={isPopUpOpen} closePopUp={() => {setIsPopUpOpen(false)}} nodeName={nodeName} setNodeName={(name) => {setNodeName(name)}} addConditions={(newConditions: string[]) => {addConditions(newConditions)}}/>
+            <EditIfElseNodePopUp id={id} onDelete={() => {reactFlowInstance.deleteElements({nodes: [{id}]})}} isOpen={isPopUpOpen} closePopUp={() => {setIsPopUpOpen(false)}} nodeName={nodeName} setNodeName={(name) => {setNodeName(name)}} setConditions={setConditions} conditions={conditions}/>
             <Handle type="target" position={Position.Top} />
             <BaseNode disableDefaultHandle={true}>
                 <div className="w-full h-full flex items-center p-3 bg-white" onClick={() => {setIsPopUpOpen(true)}}>
@@ -33,7 +33,7 @@ const IfElseNode : React.FC<BranchNodeProps> = ({id}) => {
                 {conditions.map((condition, index) => {
                     return (
                         <div key={condition}>
-                            <BranchNode data={{name: condition}} />
+                            <BranchNode disableDefaultHandle={true} data={{name: condition}} />
                             <Handle style={{left: 128 + index*256}} id={condition} type="source" position={Position.Bottom} />
                         </div>)
                 })}
