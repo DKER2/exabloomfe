@@ -10,6 +10,7 @@ const AddEdge: React.FC<EdgeProps> = ({
                                              targetX,
                                              targetY,
                                              source,
+                                             sourceHandleId,
                                              target,
                                              style,
                                          }) => {
@@ -37,7 +38,7 @@ const AddEdge: React.FC<EdgeProps> = ({
 
     const addInternalEdges = (type: NodeTypes, id: string) : void => {
         const newEdges = [
-            { id: `e${source}-${id}`, type: 'addEdge', source: `${source}`, target: `${id}` },
+            { id: `e${source}-${id}`, type: 'addEdge', source: `${source}`, target: `${id}`, ...(sourceHandleId && { sourceHandle: sourceHandleId }) },
         ]
         if(type != "ifElseNode") {
             newEdges.push({ id: `e${id}-${target}`, type: 'addEdge', source: `${id}`, target: `${target}` })
