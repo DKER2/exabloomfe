@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {EdgeProps, getBezierPath, useReactFlow, Node, Edge} from '@xyflow/react';
+import { EdgeProps, getBezierPath, useReactFlow, Node } from '@xyflow/react';
 import SelectNodePopUp from "../popUp/SelectNodePopUp.tsx";
 import {NodeTypes} from "../../consts/nodeTypes.ts";
 
@@ -10,7 +10,6 @@ const AddEdge: React.FC<EdgeProps> = ({
                                              targetX,
                                              targetY,
                                              source,
-                                             sourceHandleId,
                                              target,
                                              style,
                                          }) => {
@@ -37,8 +36,8 @@ const AddEdge: React.FC<EdgeProps> = ({
     }
 
     const addInternalEdges = (type: NodeTypes, id: string) : void => {
-        const newEdges : Edge[] = [
-            { id: `e${source}-${id}`, type: 'addEdge', source: `${source}`, sourceHandle: `${sourceHandleId}`, target: `${id}` },
+        const newEdges = [
+            { id: `e${source}-${id}`, type: 'addEdge', source: `${source}`, target: `${id}` },
         ]
         if(type != "ifElseNode") {
             newEdges.push({ id: `e${id}-${target}`, type: 'addEdge', source: `${id}`, target: `${target}` })
